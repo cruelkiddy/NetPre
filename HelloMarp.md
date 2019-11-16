@@ -33,12 +33,15 @@ marp: false
 
 ### 文件描述符（File descriptor）
 
-> In Unix and related computer operating systems, a file descriptor (FD, less frequently fildes) is an abstract indicator (handle) used to access a file or other input/output resource, such as a pipe or network socket. File descriptors form part of the POSIX application programming interface. A file descriptor is a non-negative integer, generally represented in the C programming language as the type int (negative values being reserved to indicate "no value" or an error condition).
+![bg left:50% 90%](file-descriptor.jpg)
+
+- 非负整数
+- 指向文件或io资源
+- int
 
 ```c
-int fd;
-int fd=open("file1.c",O_RDWR);
-write(fd,"Hello world!",sizeof("Hello world!"));
+int interface = open("/dev/net/tun", O_RDWR | O_NONBLOCK);
+write(interface, packet, length);
 ```
 
 ---
@@ -76,7 +79,7 @@ write(fd,"Hello world!",sizeof("Hello world!"));
 
 ### ToyVpn的通信过程
 
-![bg top:100% 60%](ToyVpn.png)
+![bg top:100% 70%](ToyVpn.png)
 
 ---
 
@@ -87,7 +90,7 @@ write(fd,"Hello world!",sizeof("Hello world!"));
 
 ---
 
-![bg left:50% 90%](ToyVpn.png)
+![bg left:50% 95%](ToyVpn.png)
 
 ### NAT(Network Address Translation)
 
@@ -101,7 +104,7 @@ iptables -t nat -A POSTROUTING -s 10.0.0.0/8 -o eth0 -j MASQUERADE
 
 ---
 
-![bg left:50% 90%](ToyVpn.png)
+![bg left:50% 95%](ToyVpn.png)
 
 ### 客户端的超时问题
 
@@ -112,7 +115,7 @@ iptables -t nat -A POSTROUTING -s 10.0.0.0/8 -o eth0 -j MASQUERADE
 
 ---
 
-![bg left:50% 90%](ToyVpn.png)
+![bg left:50% 95%](ToyVpn.png)
 
 ### 服务器的超时问题
 
@@ -120,6 +123,11 @@ iptables -t nat -A POSTROUTING -s 10.0.0.0/8 -o eth0 -j MASQUERADE
 - timer += (timer > 0) ? 100 : -100;
 - （UDP Tunnel）太久（timer < -16000）不发，则发0
 - （UDP Tunnel）太久(timer > 20000)收不到数据，认为连接中断
+
+---
+
+### 演示ToyVpn
+
 
 ---
 
